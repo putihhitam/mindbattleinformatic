@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Jawaban Benar</title>
+    <style>
+        body {
+            font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            background-color: #c7c7dd;
+            color: #333;
+            margin: 20px;
+            text-align: center;
+        }
+        .quiz-container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .question {
+            font-size: 1.5em;
+            margin-bottom: 20px;
+        }
+        .input-answer {
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 1.2em;
+            width: 80%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+            cursor: pointer;
+        }
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-radius: 5px;
+            display: none;
+        }
+        .correct {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .wrong {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h2>Masukkan Jawaban</h2>
+        <div id="questions">
+            <!-- FORM JAWABAN -->
+            <input type="text" id="answer1" class="input-answer" placeholder="Jawaban 1" />
+            <input type="text" id="answer2" class="input-answer" placeholder="Jawaban 2" />
+            <input type="text" id="answer3" class="input-answer" placeholder="Jawaban 3" />
+            <input type="text" id="answer4" class="input-answer" placeholder="Jawaban 4" />
+            <input type="text" id="answer5" class="input-answer" placeholder="Jawaban 5" />
+            <input type="text" id="answer6" class="input-answer" placeholder="Jawaban 6" />
+            <input type="text" id="answer7" class="input-answer" placeholder="Jawaban 7" />
+            <input type="text" id="answer8" class="input-answer" placeholder="Jawaban 8" />
+            <input type="text" id="answer9" class="input-answer" placeholder="Jawaban 9" />
+            <input type="text" id="answer10" class="input-answer" placeholder="Jawaban 10" />
+            <input type="text" id="answer11" class="input-answer" placeholder="Jawaban 11" />
+            <input type="text" id="answer12" class="input-answer" placeholder="Jawaban 12" />
+            <input type="text" id="answer13" class="input-answer" placeholder="Jawaban 13" />
+            <br>
+            <button class="submit-btn" onclick="checkAnswers()">Submit</button>
+        </div>
+        <div id="result" class="result"></div>
+    </div>
+
+    <script>
+        // Kunci jawaban
+        const correctAnswers = [
+            "jaringan komputer", 
+            "internet protocol", 
+            "internet service provider", 
+            "jaringan lokal", 
+            "jaringan lokal", 
+            "interconnection networking", 
+            "8", 
+            "11011", 
+            "1991", 
+            "false", 
+            "false",
+            "8192"
+
+        ];
+        function checkAnswers() {
+            let wrongCount = 0;
+            const userAnswers = [
+                document.getElementById("answer1").value.trim().toLowerCase(),
+                document.getElementById("answer2").value.trim().toLowerCase(),
+                document.getElementById("answer3").value.trim().toLowerCase(),
+                document.getElementById("answer4").value.trim().toLowerCase(),
+                document.getElementById("answer5").value.trim().toLowerCase(),
+                document.getElementById("answer6").value.trim().toLowerCase(),
+                document.getElementById("answer7").value.trim().toLowerCase(),
+                document.getElementById("answer8").value.trim().toLowerCase(),
+                document.getElementById("answer9").value.trim().toLowerCase(),
+                document.getElementById("answer10").value.trim().toLowerCase(),
+                document.getElementById("answer11").value.trim().toLowerCase(),
+                document.getElementById("answer12").value.trim().toLowerCase(),
+                document.getElementById("answer13").value.trim().toLowerCase()
+            ];
+        
+            // Cek jawaban dan hitung yang salah
+            for (let i = 0; i < correctAnswers.length; i++) {
+                if (userAnswers[i] !== correctAnswers[i].toLowerCase()) {
+                    wrongCount++;
+                }
+            }
+        
+            // Tampilkan hasil
+            const resultDiv = document.getElementById("result");
+            let resultText = "";
+        
+            if (wrongCount === 0) {
+                resultText = "JAWABAN BENAR!";
+                resultDiv.className = "result correct";
+            } else {
+                resultText = `${wrongCount} jawaban salah`;
+                resultDiv.className = "result wrong";
+            }
+        
+            resultDiv.textContent = resultText;
+            resultDiv.style.display = "block";
+        
+            // Menambahkan suara untuk memberikan feedback
+            let speech = new SpeechSynthesisUtterance(resultText);
+            // Menyesuaikan pengaturan suara (opsional)
+            speech.lang = "id-ID"; // Bahasa Indonesia
+            speech.volume = 1; // Volume (0-1)
+            speech.rate = 1; // Kecepatan bicara (0.1 - 10)
+            speech.pitch = 1; // Nada suara (0 - 2)
+            
+            // Menyuarakan teks
+            window.speechSynthesis.speak(speech);
+        }
+        
+    </script>
+</body>
+</html>
