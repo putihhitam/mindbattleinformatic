@@ -2,7 +2,7 @@
     "rewrites": [
       {
         "source": "/:path*",
-        "destination": "/new-destination"
+        "destination": "/mindbattle.html"
       }
     ]
   }
